@@ -1,7 +1,8 @@
 import re
 from textnode import TextNode, TextType
 
-
+# Splits text nodes based on delimiters ("**", "_", "`")
+    # Helper function used by text_to_text_nodes to split markdown text to individual TextNodes
 def split_nodes_delimiter(old_nodes, delimiter, text_type):
     new_nodes = []
     for node in old_nodes:
@@ -23,12 +24,18 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
         new_nodes.extend(formatted_nodes)
     return new_nodes
 
+# Regex helper that returns alt-text and url tuple for images (alt-text, url)
+    #Helper function for split_nodes_image
 def extract_markdown_images(text):
     return re.findall(r"!\[([^\[\]]*)\]\(([^\(\)]*)\)", text)
 
+# Regex helper that returns text and url tuple for hyperlinks (text, url)
+    #Helper function for split_nodes_link
 def extract_markdown_links(text):
     return re.findall(r"(?<!!)\[([^\[\]]*)\]\(([^\(\)]*)\)", text)
 
+# Splits text nodes on markdown image syntax ![alt-text](url)
+    #Helper function for text_to_textnodes
 def split_nodes_image(old_nodes):
     new_nodes = []
     for node in old_nodes:
@@ -50,6 +57,8 @@ def split_nodes_image(old_nodes):
             new_nodes.append(TextNode(remaining_text, TextType.TEXT))
     return new_nodes
 
+# Splits text nodes on markdown link syntax [text](url)
+    #Helper function for text_to_textnodes
 def split_nodes_link(old_nodes):
     new_nodes = []
     for node in old_nodes:
@@ -71,6 +80,7 @@ def split_nodes_link(old_nodes):
             new_nodes.append(TextNode(remaining_text, TextType.TEXT))
     return new_nodes
 
+# This is our master inline parser - takes raw markdown string and returns a list of TextNodes
 def text_to_textnodes(text):
     starting_node = [TextNode(text, TextType.TEXT)]
     split_bolds = split_nodes_delimiter(starting_node, "**", TextType.BOLD)

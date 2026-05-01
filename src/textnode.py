@@ -1,6 +1,7 @@
 from enum import Enum
 from htmlnode import LeafNode
 
+# Enumerate our inline text variants
 class TextType(Enum):
     TEXT = "text"
     BOLD = "bold"
@@ -9,7 +10,7 @@ class TextType(Enum):
     LINK = "link"
     IMAGE = "image"
 
-
+# A simple class that holds text, text_type (from our options in the TextType class), and an optional url
 class TextNode:
     def __init__(self, text, text_type, url=None):
         self.text = text
@@ -26,7 +27,7 @@ class TextNode:
     def __repr__(self):
         return f"TextNode({self.text}, {self.text_type.value}, {self.url})"
     
-
+# Convert a single TextNode into a LeafNode (see htmlnode.py)
 def text_node_to_html_node(text_node):
     match text_node.text_type:
         case TextType.TEXT:
