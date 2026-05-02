@@ -119,24 +119,6 @@ def markdown_to_html_node(markdown):
     for block in blocks:
         stripped_block = block.strip()
         block_type = block_to_block_type(stripped_block)
-
-# Option 1 using if statements
-#        if block_type == BlockType.PARAGRAPH:
-#            pass
-#        elif block_type == BlockType.HEADING:
-#            pass
-#        elif block_type == BlockType.CODE:
-#            pass
-#        elif block_type == BlockType.QUOTE:
-#            pass
-#        elif block_type == BlockType.UNORDERED_LIST:
-#            pass
-#        elif block_type == BlockType.ORDERED_LIST:
-#            pass
-#        else:
-#            raise Exception(f"{block_type} BlockType is not available for use.")
-
-# Option 2 using match
         match block_type:
             case BlockType.PARAGRAPH:
                 children.append(paragraph_to_html_node(stripped_block))
