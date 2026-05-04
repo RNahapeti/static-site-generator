@@ -1,7 +1,6 @@
-from textnode import TextType, TextNode
+from copystatic import setup_public_dir
 
 def main():
-    block_1 = TextNode("This text is bold", TextType.BOLD)
-    print(block_1)
+    setup_public_dir("./static", "./public")
 
 main()
